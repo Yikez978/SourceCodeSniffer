@@ -2,6 +2,16 @@
 The Source Code Sniffer is a poor man’s static code analysis tool (SCA) designed to highlight high risk functions (Injection, LFI/RFI, file uploads etc) across multiple web application development languages (ASP, Java, CSharp, PHP, Perl, Python, JavaScript, HTML etc) in a highly configurable manner.
 Source Code Sniffer is written in Python 2.7 and supports both Windows and Linux.
 
+&#10004;
+
+## Static Code Analysis Features and Languages
+|Language   |SQL Injection|LFI/RFI|XSS|File Traversal|File Uploads|XML Injection|JSON Injection|XPath Injection|LDAP Injection|
+|----------:|------------:|------:|--:|-------------:|-----------:|------------:|-------------:|--------------:|-------------:|
+|PHP        |
+|ASP Classic|
+
+
+
 ##Syntax help
 ```
 python SourceCodeSniffer.py -h
