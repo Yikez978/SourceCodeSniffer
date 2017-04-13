@@ -5,21 +5,21 @@ Source Code Sniffer is written in Python 2.7 and supports both Windows and Linux
 
 
 ## Static Code Analysis Features and Languages
-|Language   |SQL Injection|LFI/RFI|XSS|File Traversal|File Uploads|XML Injection|JSON Injection|XPath Injection|LDAP Injection|
-|----------:|------------:|------:|--:|-------------:|-----------:|------------:|-------------:|--------------:|-------------:|
-|PHP        |             |       |   |              |            |             |              |               |              |
-|Python     |             |       |   |              |            |             |              |               |              |
-|Node.js    |             |       |   |              |            |             |              |               |              |
-|ASP Classic|  &#10004;   |       |   |              |            |             |              |               |              |
-|ASP.NET    |  &#10004;   |       |   |              |            |             |              |               |              |
-|JAVA       |             |       |   |              |            |             |              |               |              |
-|JavaScript |             |       |   |              |            |             |              |               |              |
-|Ruby       |             |       |   |              |            |             |              |               |              |
-|Ruby       |             |       |   |              |            |             |              |               |              |
-|Perl       |             |       |   |              |            |             |              |               |              |
-|HTML       |             |       |   |              |            |             |              |               |              |
-|HTML5      |             |       |   |              |            |             |              |               |              |
-|VBScript   |             |       |   |              |            |             |              |               |              |
+|Language   |SQL Injection|LFI/RFI |XSS|File Traversal|File Uploads|XML Injection|JSON Injection|Command Injection|LDAP Injection|
+|----------:|------------:|-------:|--:|-------------:|-----------:|------------:|-------------:|--------------:|-------------:|
+|PHP        |             |        |   |              |            |             |              |               |              |
+|Python     |             |        |   |              |            |             |              |               |              |
+|Node.js    |             |        |   |              |            |             |              |               |              |
+|ASP Classic| &#10004;    |&#10004;|   |              |            |             |              |               |              |
+|ASP.NET    | &#10004;    |        |   |              |            |             |              |               |              |
+|JAVA       |             |        |   |              |            |             |              |               |              |
+|JavaScript |             |        |   |              |            |             |              |               |              |
+|Ruby       |             |        |   |              |            |             |              |               |              |
+|Ruby       |             |        |   |              |            |             |              |               |              |
+|Perl       |             |        |   |              |            |             |              |               |              |
+|HTML       |             |        |   |              |            |             |              |               |              |
+|HTML5      |             |        |   |              |            |             |              |               |              |
+|VBScript   |             |        |   |              |            |             |              |               |              |
 
 ##Syntax help
 ```
