@@ -10,6 +10,7 @@ Source Code Sniffer is written in Python 2.7 and supports both Windows and Linux
 |PHP        |             |        |   |              |            |             |              |               |              |
 |Python     |             |        |   |              |            |             |              |               |              |
 |Node.js    |             |        |   |              |            |             |              |               |              |
+|GO         |             |        |   |              |            |             |              |               |              |
 |ASP Classic| &#10004;    |&#10004;|   |              |            |             |              |               |              |
 |ASP.NET    | &#10004;    |        |   |              |            |             |              |               |              |
 |JAVA       |             |        |   |              |            |             |              |               |              |
