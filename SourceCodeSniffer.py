@@ -128,43 +128,51 @@ class logger:
         if logger.VERBOSE == True:
             print(msg)
 
+class Colored:
+    @staticmethod
+    def redback(printString):
+        return "\033[0m\033[37m\033[41m" + printString
 
-class colored:
+    @staticmethod
+    def black(printString):
+        return '\033[0;30m' + printString
+
     @staticmethod
     def red(printString):
-        return printString
-        # return "\033[0m\033[37m\033[41m" + printString
-
-    @staticmethod
-    def white(printString):
-        return printString
-        # return '\e[1;37m' + printString
-
-    @staticmethod
-    def blue(printString):
-        return printString
-        # return '\033[0;34m' + printString
+        return '\033[0;31m' + printString
 
     @staticmethod
     def green(printString):
-        return printString
-        # return '\033[0;32m' + printString
+        return '\033[0;32m' + printString
 
     @staticmethod
     def yellow(printString):
-        return printString
-        # return '\\033[1;33m' + printString
+        return '\033[0;33m' + printString
+
+    @staticmethod
+    def blue(printString):
+        return '\033[0;34m' + printString
+
+    @staticmethod
+    def magenta(printString):
+        return '\033[0;35m' + printString
 
     @staticmethod
     def cyan(printString):
-        return printString
-        # return '\e[0;36m' + printString
+        return '\033[0;36m' + printString
+
+    @staticmethod
+    def white(printString):
+        return '\033[0;37m'  + printString
 
     @staticmethod
     def grey(printString):
-        return printString
-        # return '\e[0;30m' + printString
+        return '\033[0;38m' + printString
 
+    @staticmethod
+    def reset(printString):
+        # return printString
+        return '\033[0;39m' + printString
 
 class tabled:
     @staticmethod
@@ -192,10 +200,11 @@ class SourceCodeSnifferMain:
         self._report_filename = "REPORT.txt"
         self._report_timer_filename = "REPORT_TIMES.txt"
         self._remove_line_words = ['time', 'elapsed', 'Compare', 'BlkIo', 'Variable issues', 'Variable ConOut']
-        self._summaryReport = []
+        self._summaryReportIssuesByFile = []
+        self._summaryReportHighestRiskLevel = []
         self._summaryReportTimer = []
         self._summaryRiskTotal = 0
-        self._summaryRiskCount = 0
+        self._summaryCount = 0
 
         # parse arguments
         self.parse_args()
@@ -204,23 +213,23 @@ class SourceCodeSnifferMain:
         return "%s" % (__version__)
 
     def add_to_summary_report(self, text):
-        self._summaryReport.append(text)
+        self._summaryReportIssuesByFile.append(text)
 
     def print_banner(self):
         """
         Prints banner
         """
-        print(colored.red("  Source Code Sniffer Version: " + __version__ + " Updated: " + __lastupdated__))
+        print(Colored.red("  Source Code Sniffer Version: " + __version__ + " Updated: " + __lastupdated__))
 
     def usage(self):
         print "\n- Command Line Usage\n\t``# %.65s [options]``\n" % sys.argv[0]
         print "Options\n-------"
         print "====================== =============================================================="
-        print "-c --configFiles        specify the config files (default=" + self._config_files + ")"
+        print "-c --configFiles        specify the config files (default=" + str(self._config_files) + ")"
         print "                        config files should be comma separated"
-        print "-p --pathToScan         specify the path to scan (default=" + self._path_to_scan + ")"
+        print "-p --pathToScan         specify the path to scan (default=" + str(self._path_to_scan) + ")"
         print "                        use the forward slash / for both *nix and windows paths"
-        print "-i --ignoreFiles        specify files to not scan (default=" + self._ignore_files + ")"
+        print "-i --ignoreFiles        specify files to not scan (default=" + str(self._ignore_files) + ")"
         print "                        ignored files and file types should be comma separated "
         print "-v --verbose            verbose mode"
         print "-d --debug              show debug output"
@@ -260,7 +269,7 @@ class SourceCodeSnifferMain:
 
     def sourceCodeSniffFolder(self):
         # Generate Validation Data Dumps
-        print(colored.red("Sniffing for dangerous code..."))
+        print(Colored.red("Sniffing for dangerous code..."))
         for root, subdirs, files in os.walk(os.path.normpath(self._path_to_scan)):
             logger().verbose('--\nroot = ' + root)
             for subdir in subdirs:
@@ -282,9 +291,14 @@ class SourceCodeSnifferMain:
                     if filename_has_been_shown == False:
                         print file_path
                         filename_has_been_shown = True
-                    print('\t-Found %s on line %s: %s' % (self.config.get(each_section, 'Message'), i + 1 , match.groups()))
-                    print line
+                    logger().debug('\t-Found %s on line %s: %s' % (self.config.get(each_section, 'Message'), i + 1 , match.groups()))
                     logger().verbose(line)
+                    self._summaryRiskTotal += self.config.get(each_section, 'RiskLevel')
+                    self._summaryCount += 1
+                    self._summaryReportIssuesByFile[file_path] += 1
+                    if self._summaryReportHighestRiskLevel[file_path] < self.config.get(each_section, 'RiskLevel'):
+                        self._summaryReportHighestRiskLevel[file_path] = self.config.get(each_section, 'RiskLevel')
+
 
     ##################################################################################
     # Entry point for command-line execution
@@ -292,8 +306,8 @@ class SourceCodeSnifferMain:
 
     def main(self):
         self.print_banner()
-        print(colored.red("Using configuration files: " + str(self._config_files)))
-        print(colored.red("Recursively sniffing path for dangerous code: " + self._path_to_scan))
+        print(Colored.red("Using configuration files: " + str(self._config_files)))
+        print(Colored.red("Recursively sniffing path for dangerous code: " + self._path_to_scan))
         sys.stderr = open("errorlog.txt", 'w')
         # load config
         self.config = ConfigParser.ConfigParser()
